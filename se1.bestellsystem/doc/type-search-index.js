@@ -1,1 +1,1 @@
-typeSearchIndex = [{"l":"All Classes and Interfaces","u":"allclasses-index.html"},{"p":"datamodel","l":"Customer"}];updateSearchResults();
+typeSearchIndex = [{"l":"All Classes and Interfaces","u":"allclasses-index.html"},{"p":"datamodel","l":"Article"},{"p":"datamodel","l":"Currency"},{"p":"datamodel","l":"Customer"},{"p":"datamodel","l":"Order"},{"p":"datamodel","l":"OrderItem"},{"p":"datamodel","l":"TAX"}];updateSearchResults();
