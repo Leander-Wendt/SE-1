@@ -16,7 +16,7 @@ import datamodel.TAX;
  * Run test methods: articleTests(), orderTests() and customerTests()
  * in the main() function;
  * 
- * @author sgra64
+ * @author Leander Wendt
  *
  */
 

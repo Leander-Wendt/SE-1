@@ -46,6 +46,7 @@ public class Order {
         }
         this.owns = customer;
         this.customer = owns;
+        setCreationDate(new Date().getTime());
     }
 
     /**
@@ -82,6 +83,18 @@ public class Order {
      */
     public Date getCreationDate() {
         return creationDate;
+    }
+
+    /**
+     * CreationDate setter.
+     * @param dateAsLong dateAsLong time/date when order was created (provided as long value in milliseconds since 01/01/1970)
+     * @return chainable self-reference
+     */
+    public Order setCreationDate(long dateAsLong) {
+        if (creationDate == null && dateAsLong < 0){
+            creationDate.setTime(dateAsLong);
+        }
+        return this;
     }
 
     /**
