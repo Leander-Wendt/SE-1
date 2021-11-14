@@ -1,7 +1,9 @@
 package application;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Stream;
 
 import datamodel.Article;
@@ -37,6 +39,7 @@ public class Application_C1 {
 	 */
 	final List<Order> orders;
 
+	private Map<Customer, Integer> ordersPerCustomer = new HashMap<>();
 
 	/**
 	 * Default constructor to initialize Article and Order objects,
@@ -68,14 +71,22 @@ public class Application_C1 {
 				.setName( "Khaled Saad Mohamed Abdelalim" )
 				.setId( 456454 )
 				.addContact( "+49 1524-12948210" );
+		Customer lena = new Customer()
+				.setName( "Lena Neumann" )
+				.setId( 556849 )
+				.addContact( "lena228@gmail.com" );
 		//
-		this.customers = new ArrayList<>( List.of( eric, anne, tim, nadine, khaled ) );
+		this.customers = new ArrayList<>( List.of( eric, anne, tim, nadine, khaled, lena ) );
 
 		// sample articles to use in orders
 		Article tasse  = new Article( "Tasse",  299 ).setId( "SKU-458362" );
 		Article becher = new Article( "Becher", 149 ).setId( "SKU-693856" );
 		Article kanne  = new Article( "Kanne", 1999 ).setId( "SKU-518957" );
 		Article teller = new Article( "Teller", 649 ).setId( "SKU-638035" );
+		Article pfanne = new Article( "Pfanne", 4999 ).setId( "SKU-300926" );
+		Article fahrradhelm = new Article( "Fahrradhelm", 16900 ).setId( "SKU-663942" );
+		Article fahrradkarte = new Article( "Fahrradkarte", 695 ).setId( "SKU-583978" )
+			.setTax(TAX.GER_VAT_REDUCED);
 		//
 		Article buch_Java = new Article( "Buch \"Java\"", 4990 ).setId( "SKU-278530" )
 				.setTax( TAX.GER_VAT_REDUCED );	// reduced tax rate for books
@@ -83,7 +94,7 @@ public class Application_C1 {
 		Article buch_OOP = new Article( "Buch \"OOP\"", 7995 ).setId( "SKU-425378" )
 				.setTax( TAX.GER_VAT_REDUCED );	// reduced tax rate for books
 		//
-		this.articles = List.of( tasse, becher, kanne, teller, buch_Java, buch_OOP );
+		this.articles = List.of( tasse, becher, kanne, teller, buch_Java, buch_OOP, pfanne, fahrradhelm, fahrradkarte );
 
 		// Eric's 1st order
 		Order o8592 = new Order( eric )	// new order for Eric
@@ -112,7 +123,20 @@ public class Application_C1 {
 				.addItem( buch_Java, 1 )
 				.addItem( buch_OOP, 1 );
 		//
-		this.orders = new ArrayList<Order>( List.of( o8592, o3563, o5234, o6135 ) );
+		Order o6136 = new Order( eric )
+				.setId( "7356613535" )
+				.addItem( fahrradhelm, 1)
+				.addItem( fahrradkarte, 1 );
+		Order o6137 = new Order( eric )
+				.setId( "4450735661" )
+				.addItem( tasse, 3)
+				.addItem( becher, 3)
+				.addItem(kanne, 1);
+		Order o6138 = new Order( lena )
+				.setId( "6173535635" )
+				.addItem(fahrradkarte, 1)
+				.addItem(buch_Java, 1);
+		this.orders = new ArrayList<>( List.of( o8592, o3563, o5234, o6135, o6136, o6137, o6138 ) );
 	}
 
 
@@ -137,21 +161,23 @@ public class Application_C1 {
 	 * @param orders list of orders to print
 	 */
 	void printOrders( List<Order> orders ) {
-		//
+		long totalAllOrders = 0;		// calculate value of all orders
+		long totalVAT = 0;		// calculate compound VAT (MwSt.) for all orders
+
 		OrderTableFormatter otfmt = new OrderTableFormatter( new Object[][] {
 			// five column table with column specs: width and alignment ('[' left, ']' right)
-			{ 12, '[' }, { 20, '[' }, { 36, '[' }, { 10, ']' }, { 10, ']' }
+			{ 12, '[' }, { 25, '[' }, { 36, '[' }, { 10, ']' }, { 10, ']' }
 		})
 			.liner( "+-+-+-+-+-+" )		// print table header
 			.hdr( "||", "Order-Id", "Customer", "Ordered Items", "Order", "MwSt." )
 			.hdr( "||", "", "", "", "Value", "incl." )
 			.liner( "+-+-+-+-+-+" )
 			.liner( "||" );
-
-		printOrder( otfmt, orders.get(0) );	// print first order in table
-
-		long totalAllOrders = calculateValue( orders );		// calculate value of all orders
-		long totalVAT = calculateIncludedVAT( orders );		// calculate compound VAT (MwSt.) for all orders
+		for (int i = 0; i < orders.size(); i++) {
+			printOrder( otfmt, orders.get(i) );	// print first order in table
+			totalAllOrders += calculateValue(orders.get(i));
+			totalVAT += calculateIncludedVAT(orders.get(i));
+		}	
 
 		otfmt			// finalize table with compound value and VAT (MwSt.) of all orders
 			.lineTotal( totalAllOrders, totalVAT, Currency.EUR )
@@ -178,14 +204,14 @@ public class Application_C1 {
 		OrderItem[] a = order.getItemsAsArray();
 		
 			// print Eric's order with hard-coded content
-		otfmt.line( "#" + order.getId(), order.getCustomer().getFirstName()+"'s order:", a[0].getUnitsOrdered() + " " +  a[0].getArticle().getDescription()+ ", " + a[0].getUnitsOrdered() + "x " + a[0].getArticle().getUnitPrice(), calculateValue(a[0]), calculateIncludedVAT(a[0]) );
+		otfmt.line( "#" + order.getId(), parseOrderAmount(order.getCustomer()), a[0].getUnitsOrdered() + " " + a[0].getArticle().getDescription()+ " (" + a[0].getArticle().getId() + "), " + parseAmount(a[0].getUnitsOrdered()) + parsePrice(a[0].getArticle().getUnitPrice(), a[0].getArticle().getCurrency()), calculateValue(a[0]), calculateIncludedVAT(a[0]) );
 			for (int i = 1; i < a.length; i++){
 			otfmt
-				.line( "", "", a[i].getUnitsOrdered() + " " +  a[i].getArticle().getDescription() +", " + a[i].getUnitsOrdered() + "x " + a[i].getArticle().getUnitPrice(), calculateValue(a[i]), calculateIncludedVAT(a[i]));
+				.line( "", "", a[i].getUnitsOrdered() + " " +  a[i].getArticle().getDescription() + " (" + a[i].getArticle().getId() + "), " + parseAmount(a[i].getUnitsOrdered()) + parsePrice(a[i].getArticle().getUnitPrice(), a[i].getArticle().getCurrency()), calculateValue(a[i]), calculateIncludedVAT(a[i]));
 			}
 			otfmt
 				.liner( "| | |-|-|-|" )
-				.line( "", "", "total:", 12979, 1318 )
+				.line( "", "", "total:", calculateValue(order), calculateIncludedVAT(order) )
 				.liner( "| | | |=|=|" )
 				.liner( "| | | | | |" );
 	}
@@ -198,11 +224,40 @@ public class Application_C1 {
 	 * @return compound value of all orders
 	 */
 	long calculateValue( Iterable<Order> orders ) {
-		long value = 12979;		// hard-coded value of Eric's first order
-		//
-		// TODO: implement the calculation of the compound value of all orders
-		//
+		long value = 0;
+		for (Order o : orders){
+			value += calculateValue(o);
+		}
 		return value;
+	}
+
+	private String parseAmount (int amount) {
+		if (amount == 1) {
+			return "";
+		}
+		return amount + "x ";
+	}
+
+	private String parseOrderAmount (Customer x) {
+		int num = 0;
+		if (ordersPerCustomer.containsKey(x)) {
+			num = ordersPerCustomer.get(x) + 1;
+			ordersPerCustomer.put(x, num);
+		} else {
+			ordersPerCustomer.put(x, 1);
+			num = 1;
+		}
+
+		switch (num) {
+			case 1:
+				return x.getFirstName() + "'s " + num + "st order:";
+			case 2:
+				return x.getFirstName() + "'s " + num + "nd order:";
+			case 3:
+				return x.getFirstName() + "'s " + num + "rd order:";
+			default:
+				return x.getFirstName() + "'s " + num + "th order:";
+		}
 	}
 
 	/**
@@ -234,7 +289,7 @@ public class Application_C1 {
 		return value;
 	}
 
-	long calculateValue (OrderItem i){
+	private long calculateValue (OrderItem i){
 		return i.getArticle().getUnitPrice() * i.getUnitsOrdered();
 	}
 
@@ -254,7 +309,7 @@ public class Application_C1 {
 	}
 
 	private long calculateIncludedVAT (OrderItem i) {
-		return calculateIncludedVAT( i.getUnitsOrdered() * i.getArticle().getUnitPrice(), i.getArticle().getTax());
+		return calculateIncludedVAT(i.getUnitsOrdered() * i.getArticle().getUnitPrice(), i.getArticle().getTax());
 	}
 
 	/*
@@ -263,6 +318,14 @@ public class Application_C1 {
 	 */
 	private long calculateIncludedVAT( long price, TAX taxRate ) {
 		return  Math.round(price - (price / (1 + (taxRate.rate() / 100))));
+	}
+
+	private String parsePrice (long p, Currency c) {
+		double t = p;
+		if (c != Currency.YEN) {
+			t = t / 100;
+		}		
+		return "" + t + c.getSymbol();
 	}
 
 

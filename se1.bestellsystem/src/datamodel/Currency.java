@@ -79,4 +79,8 @@ public enum Currency {
 		return padded;
 	}
 
+	public String getSymbol() {
+		return symbol;
+	}
+
 }
