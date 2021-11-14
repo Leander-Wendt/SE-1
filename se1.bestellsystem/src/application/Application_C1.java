@@ -43,7 +43,6 @@ public class Application_C1 {
 	 * Customer objects are inherited from base class.
 	 */
 	Application_C1() {
-        System.out.println(calculateIncludedVAT(100, TAX.GER_VAT));
 		// inherit Customers from base class
 		Customer eric = new Customer( "Eric Meyer" )
 				.setId( 892474 )	// set id, first time
@@ -70,7 +69,7 @@ public class Application_C1 {
 				.setId( 456454 )
 				.addContact( "+49 1524-12948210" );
 		//
-		this.customers = new ArrayList<Customer>( List.of( eric, anne, tim, nadine, khaled ) );
+		this.customers = new ArrayList<>( List.of( eric, anne, tim, nadine, khaled ) );
 
 		// sample articles to use in orders
 		Article tasse  = new Article( "Tasse",  299 ).setId( "SKU-458362" );
@@ -176,16 +175,19 @@ public class Application_C1 {
 	 * @param order order to print
 	 */
 	void printOrder( OrderTableFormatter otfmt, Order order ) {
-		otfmt
+		OrderItem[] a = order.getItemsAsArray();
+		
 			// print Eric's order with hard-coded content
-			.line( "#8592356245", "Eric's order:", "4 Teller (SKU-638035), 4x 6.49€", 2596, 414 )
-			.line( "", "", "8 Becher (SKU-693856), 8x 1.49€", 1192, 190 )
-			.line( "", "", "1 Buch \"OOP\" (SKU-425378), 79.95€", 7995, 523 )
-			.line( "", "", "4 Tasse (SKU-458362), 4x 2.99€", 1196, 191 )
-			.liner( "| | |-|-|-|" )
-			.line( "", "", "total:", 12979, 1318 )
-			.liner( "| | | |=|=|" )
-			.liner( "| | | | | |" );
+		otfmt.line( "#" + order.getId(), order.getCustomer().getFirstName()+"'s order:", a[0].getUnitsOrdered() + " " +  a[0].getArticle().getDescription()+ ", " + a[0].getUnitsOrdered() + "x " + a[0].getArticle().getUnitPrice(), calculateValue(a[0]), calculateIncludedVAT(a[0]) );
+			for (int i = 1; i < a.length; i++){
+			otfmt
+				.line( "", "", a[i].getUnitsOrdered() + " " +  a[i].getArticle().getDescription() +", " + a[i].getUnitsOrdered() + "x " + a[i].getArticle().getUnitPrice(), calculateValue(a[i]), calculateIncludedVAT(a[i]));
+			}
+			otfmt
+				.liner( "| | |-|-|-|" )
+				.line( "", "", "total:", 12979, 1318 )
+				.liner( "| | | |=|=|" )
+				.liner( "| | | | | |" );
 	}
 
 
@@ -227,9 +229,13 @@ public class Application_C1 {
 		long value = 0;
 		OrderItem[] s = order.getItemsAsArray();
         for (OrderItem i : s) {
-            value += i.getArticle().getUnitPrice() * i.getUnitsOrdered();
+            value += calculateValue(i);
         }
 		return value;
+	}
+
+	long calculateValue (OrderItem i){
+		return i.getArticle().getUnitPrice() * i.getUnitsOrdered();
 	}
 
 	/**
@@ -240,7 +246,15 @@ public class Application_C1 {
 	 * @return compound VAT of all ordered items 
 	 */
 	long calculateIncludedVAT( Order order ) {
-		return calculateIncludedVAT( calculateValue(order), TAX.GER_VAT );
+		long sum = 0;
+		for (OrderItem i : order.getItemsAsArray()){
+			sum += calculateIncludedVAT(i);
+		}
+		return sum;
+	}
+
+	private long calculateIncludedVAT (OrderItem i) {
+		return calculateIncludedVAT( i.getUnitsOrdered() * i.getArticle().getUnitPrice(), i.getArticle().getTax());
 	}
 
 	/*
