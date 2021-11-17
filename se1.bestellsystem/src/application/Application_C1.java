@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Stream;
 
 import datamodel.Article;
 import datamodel.Currency;
@@ -18,7 +17,7 @@ import datamodel.TAX;
  * Class with Customer and Order objects. Running the main() function prints
  * a list of orders using the OrderTableFormatter.
  * 
- * @author sgra64
+ * @author Leander Wendt
  *
  */
 
