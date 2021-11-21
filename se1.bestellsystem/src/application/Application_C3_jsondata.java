@@ -66,8 +66,10 @@ public class Application_C3_jsondata {
 		sb.append( "\nList<Customer>:\n" );
 		List<Customer> customers = app.readCustomers( jsonFileName1 );
 
-		customers.stream()
-			.forEach
+		customers = customers.stream()
+			.sorted((n1, n2) -> n1.getLastName().compareTo(n2.getLastName()))
+			.collect(Collectors.toList());
+
 		//
 		customers.forEach( customer -> app.print( sb,  customer, " ‐‐> " ) );
 		//
@@ -76,7 +78,6 @@ public class Application_C3_jsondata {
 		//
 		System.out.println( sb );
 	}
-
 
 	/**
 	 * Import objects from file with JSON Array [ {obj1}, {obj2}, ... ]

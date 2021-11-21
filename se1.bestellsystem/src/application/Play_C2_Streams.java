@@ -30,7 +30,7 @@ public class Play_C2_Streams {
         System.out.println("");
 
         names2
-            .filter((n1 -> n1.charAt(n1.length() - 2) == 'e' && n1.charAt(n1.length() - 1) == 'z'))  // sort in descending order
+            .filter((n1 -> n1.charAt(n1.length() - 2) == 'e' && n1.charAt(n1.length() - 1) == 'z'))
             .forEach(n -> System.out.println(n));
     }   
 }
