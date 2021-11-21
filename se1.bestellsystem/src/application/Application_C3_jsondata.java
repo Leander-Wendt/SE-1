@@ -24,7 +24,7 @@ import datamodel.TAX;
 /**
  * Class to read Customer and Order objects from JSON.
  * 
- * @author sgra64
+ * @author Leander Wendt
  *
  */
 
