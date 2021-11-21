@@ -1,0 +1,14 @@
+[
+{ "id": "SKU-458362", "unitPrice": "2.99", "currency": "EUR", "unitsInStock": 137, "description": "Tasse", "category": "K\u00fcchenzubeh\u00f6r" },
+{ "id": "SKU-693856", "unitPrice": "1.49", "currency": "EUR", "unitsInStock": 428, "description": "Becher", "category": "K\u00fcchenzubeh\u00f6r" },
+{ "id": "SKU-518957", "unitPrice": "19.99", "currency": "EUR", "unitsInStock": 96, "description": "Kanne", "category": "K\u00fcchenzubeh\u00f6r" },
+{ "id": "SKU-638035", "unitPrice": "6.49", "currency": "EUR", "unitsInStock": 123, "description": "Teller", "category": "K\u00fcchenzubeh\u00f6r" },
+
+{ "id": "SKU-278530", "unitPrice": "49.90", "currency": "EUR", "vat": "VAT_REDUCED", "unitsInStock": 24, "description": "Buch 'Java'", "category": "B\u00fccher" },
+{ "id": "SKU-425378", "unitPrice": "79.95", "currency": "EUR", "vat": "VAT_REDUCED", "unitsInStock": 18, "description": "Buch 'OOP'", "category": "B\u00fccher" },
+
+{ "id": "SKU-300926", "unitPrice": "49.99", "currency": "EUR", "unitsInStock": 86, "description": "Pfanne", "category": "K\u00fcchenzubeh\u00f6r" },
+
+{ "id": "SKU-663942", "unitPrice": "169.00", "currency": "EUR", "unitsInStock": 49, "description": "Fahrradhelm", "category": "Fahrradzubeh\u00f6r" },
+{ "id": "SKU-583978", "unitPrice": "6.95", "currency": "EUR", "vat": "VAT_REDUCED", "unitsInStock": 38, "description": "Fahrradkarte", "category": "B\u00fccher" }
+]

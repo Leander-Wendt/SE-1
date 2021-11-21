@@ -10,4 +10,7 @@
 
 module se1.bestellsystem {
 	exports datamodel;
+	requires com.fasterxml.jackson.databind;
+	requires com.fasterxml.jackson.annotation;
+	requires com.fasterxml.jackson.core;
 }
