@@ -10,7 +10,9 @@
 
 module se1.bestellsystem {
 	exports datamodel;
-	requires com.fasterxml.jackson.databind;
-	requires com.fasterxml.jackson.annotation;
-	requires com.fasterxml.jackson.core;
+	exports system;
+	
+	requires transitive com.fasterxml.jackson.databind;
+	requires transitive com.fasterxml.jackson.annotation;
+	requires transitive com.fasterxml.jackson.core;
 }

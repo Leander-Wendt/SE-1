@@ -236,7 +236,7 @@ public class Application_C3_jsondata {
 					.collect( Collectors.toList() );
 
 			} catch( Exception e ) {
-				c = new ArrayList<Customer>();	// return empty list
+				c = new ArrayList<>();	// return empty list
 				e.printStackTrace();
 			}
 
