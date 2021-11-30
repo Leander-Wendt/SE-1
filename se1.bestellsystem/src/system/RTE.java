@@ -4,9 +4,9 @@ import java.util.Optional;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 
-import system.DataRepository.ArticleRepository;
-import system.DataRepository.CustomerRepository;
-import system.DataRepository.OrderRepository;
+import datamodel.Article;
+import datamodel.Customer;
+import datamodel.Order;
 import system.impl.InstanceAccessor;
 
 
@@ -133,7 +133,7 @@ public interface RTE {
 		 * 
 		 * @return singleton instance of CustomerRepository
 		 */
-		CustomerRepository getCustomerRepository();
+		Repository<Customer> getCustomerRepository();
 
 
 		/**
@@ -141,7 +141,7 @@ public interface RTE {
 		 * 
 		 * @return singleton instance of ArticleRepository
 		 */
-		ArticleRepository getArticleRepository();
+		Repository<Article> getArticleRepository();
 
 
 		/**
@@ -149,7 +149,7 @@ public interface RTE {
 		 * 
 		 * @return singleton instance of OrderRepository
 		 */
-		OrderRepository getOrderRepository();
+		Repository<Order> getOrderRepository();
 
 
 		/**

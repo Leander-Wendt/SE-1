@@ -1,13 +1,11 @@
 package application;
 
+import system.Repository;
 import system.RTE.Runtime;
-import system.DataRepository.CustomerRepository;
 
 import datamodel.Article;
 import datamodel.Customer;
 import datamodel.Order;
-import system.DataRepository.ArticleRepository;
-import system.DataRepository.OrderRepository;
 
 
 /**
@@ -28,11 +26,11 @@ public class OrderBuilder {
 	/**
 	 * Repository dependencies.
 	 */
-	private final CustomerRepository customerRepository;
+	private final Repository<Customer> customerRepository;
 	//
-	private final ArticleRepository articleRepository;
+	private final Repository<Article> articleRepository;
 	//
-	private final OrderRepository orderRepository;
+	private final Repository<Order> orderRepository;
 
 
 	/**
@@ -84,7 +82,7 @@ public class OrderBuilder {
 	 */
 	public OrderBuilder build() {
 
-		CustomerRepository crep = customerRepository;
+		Repository<Customer> crep = customerRepository;
 		/*
 		 * Look up customers from CustomerRepository.
 		 */
@@ -98,7 +96,7 @@ public class OrderBuilder {
 		Customer brigitte = crep.findById( 660380 ).get();
 		Customer joel = crep.findById( 582596 ).get();
 
-		ArticleRepository arep = articleRepository;
+		Repository<Article> arep = articleRepository;
 		/*
 		 * Look up articles from ArticleRepository.
 		 */

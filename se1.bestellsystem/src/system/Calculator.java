@@ -1,6 +1,7 @@
 package system;
 
 import datamodel.Order;
+import datamodel.OrderItem;
 import datamodel.TAX;
 
 /**
@@ -24,6 +25,14 @@ public interface Calculator {
 	 * @return the value of the order
 	 */
     long calculateValue(Order order);
+
+	/**
+	 * Calculates the value of OrderItem
+	 *  
+	 * @param i of which OrderItem the value is to be calculated
+	 * @return the value of the OrderItem
+	 */
+	long calculateValue (OrderItem i);
 
     /**
 	 * Calculates the included tax of the given orders
@@ -49,4 +58,12 @@ public interface Calculator {
 	 * @return the inclueded tax of the price
 	 */
     long calculateIncludedVAT(long price, TAX taxRate);
+
+	/**
+	 * Calculates the included tax of OrderItem
+	 *  
+	 * @param i of which OrderItem the inclueded tax is to be calculated
+	 * @return the inclueded tax of the price
+	 */
+	long calculateIncludedVAT (OrderItem i);
 }

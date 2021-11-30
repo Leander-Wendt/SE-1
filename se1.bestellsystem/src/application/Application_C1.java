@@ -337,7 +337,7 @@ public class Application_C1 {
 	/**
 	 * TableFormatter to format output for orders in form of a 5-column table.
 	 * 
-	 * @author sgra64
+	 * @author Leander Wendt
 	 *
 	 */
 	class OrderTableFormatter extends TableFormatter {

@@ -14,13 +14,14 @@ import system.RTE;
  * 
  * InstanceAccessor implements the singleton pattern for the RTE_Impl()
  * instance.
- *	@author Leander Wendt
+ *
  */
 
 public class InstanceAccessor {
 
 	/**
 	 * private static singleton instance (lazy instantiation).
+	 * @author Leander Wendt
 	 */
 	private static RTE rte_instance = null;
 

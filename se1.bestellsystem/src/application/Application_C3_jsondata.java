@@ -71,7 +71,7 @@ public class Application_C3_jsondata {
 			.collect(Collectors.toList());
 
 		//
-		customers.forEach( customer -> app.print( sb,  customer, " ‐‐> " ) );
+		customers.forEach( customer -> app.print( sb,  customer, " --> " ) );
 		//
 		sb.append( "\\\\\nimported: " )
 		.append( customers.size() ).append( " Customer objects." );
@@ -101,7 +101,7 @@ public class Application_C3_jsondata {
 					.stream( new ObjectMapper().readTree( fis ).spliterator(), false )
 					//
 					// cut stream to limited number of objects
-					// limitiert die größe der Liste basierend auf dem gegebenem Parameter
+					// limitiert die grÃ¶ÃŸe der Liste basierend auf dem gegebenem Parameter
 					.limit( lim )
 					//
 					// map JsonNode to new Optional<Article> Object
@@ -212,7 +212,7 @@ public class Application_C3_jsondata {
 					.stream( new ObjectMapper().readTree( fis ).spliterator(), false )
 					//
 					// cut stream to limited number of objects
-					// limitiert die größe der Liste basierend auf dem gegebenem Parameter
+					// limitiert die grÃ¶ÃŸe der Liste basierend auf dem gegebenem Parameter
 					.limit( lim )
 					//
 					// map JsonNode to new Optional<Article> Object
@@ -410,7 +410,7 @@ public class Application_C3_jsondata {
 
 
 	/**
-	 * Format price information as String (e.g. "19.99�") from long value
+	 * Format price information as String (e.g. "19.99ï¿½") from long value
 	 * (price in cent).
 	 * 
 	 * @param price price to format (in cent)
@@ -436,10 +436,10 @@ public class Application_C3_jsondata {
 
 	/**
 	 * Format price information from long value padded to width (e.g. width 10 using
-	 * fillChar '.' creates right aligned String "....19.99�".
+	 * fillChar '.' creates right aligned String "....19.99ï¿½".
 	 * 
 	 * @param price price to format (in cent)
-	 * @param width padded width, e.g. 10 for "....19.99�"
+	 * @param width padded width, e.g. 10 for "....19.99ï¿½"
 	 * @param fillChar character to fill padded spaces
 	 * @param currency defines included Currency symbol (empty "" for Currency.NONE)
 	 * @return formatted price padded to width in a StringBuffer

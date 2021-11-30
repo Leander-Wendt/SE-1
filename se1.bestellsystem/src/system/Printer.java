@@ -23,7 +23,7 @@ public interface Printer {
 	 * @param order object you want a StringBuffer for
 	 * @return StringBuffer for the order param
 	 */
-    StringBuffer printOrder(Order order);
+    StringBuffer printOrder(Order order, Formatter.OrderTableFormatter otfmt);
 
     /**
 	 * Provide access to RTE singleton instance.
