@@ -1,0 +1,59 @@
+# files to ignore git.
+# see: https://www.atlassian.com/git/tutorials/saving-changes/gitignore
+# example: https://github.com/github/gitignore/blob/master/Java.gitignore
+
+# ignore IDE project files
+#
+# eclipse
+.classpath
+.project
+.settings
+#
+# IntelliJ
+.iml
+.idea
+#
+# BlueJ
+*.ctxt
+#
+# Xcode
+*.pbxuser
+*.mode1v3
+*.mode2v3
+*.perspectivev3
+*.xcuserstate
+project.xcworkspace/
+xcuserdata/
+
+# ignore JavaDoc directory
+doc
+
+# ignore generated directories and compiled output
+bin
+out
+target
+**/*.class
+**/*.jar
+
+# ignore Java packaging files
+*.jar
+*.war
+*.nar
+*.ear
+
+# ignore log files
+**/*.log
+
+# ignore archives
+*.7z
+*.gz
+*.rar
+*.tar
+*.tar.gz
+*.zip
+
+# ignore Mac's .DS_Store files
+**/.DS_Store
+
+# ignore snippets package and files
+**/*[Ss]nipp*
