@@ -26,12 +26,15 @@ project.xcworkspace/
 xcuserdata/
 
 # ignore JavaDoc directory
-doc
+# se1.bestellsystem/doc
+
+# ignore .txt output
+se1.bestellsystem/output
 
 # ignore generated directories and compiled output
-bin
-out
-target
+se1.bestellsystem/bin
+se1.bestellsystem/out
+se1.bestellsystem/target
 **/*.class
 **/*.jar
 

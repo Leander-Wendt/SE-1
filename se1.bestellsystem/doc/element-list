@@ -1,5 +1,6 @@
 module:se1.bestellsystem
 application
+data
 datamodel
 system
 system.impl
