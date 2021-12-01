@@ -1,5 +1,6 @@
 package system.impl;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -105,6 +106,12 @@ class PrinterImpl implements Printer {
 			t = t / 100;
 		}		
 		return "" + t + c.getSymbol();
+	}
+
+	@Override
+	public void printOrdersToFile( Iterable<Order> orders, String filepath ) throws IOException {
+		// TODO implement method
+		throw new IOException( "not implemented." );
 	}
     
 }

@@ -1,5 +1,7 @@
 package system;
 
+import java.io.IOException;
+
 import datamodel.Order;
 
 /**
@@ -25,6 +27,13 @@ public interface Printer {
 	 */
     StringBuffer printOrder(Order order, Formatter.OrderTableFormatter otfmt);
 
+	/**
+	 * Print the list of orders in a .txt file
+	 *  
+	 * @param orders object you want to be printed
+	 * @throws IOException if a wrong filepath is used
+	 */
+	void printOrdersToFile( Iterable<Order> orders, String filepath ) throws IOException;
     /**
 	 * Provide access to RTE singleton instance.
 	 * 
