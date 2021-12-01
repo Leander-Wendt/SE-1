@@ -1,5 +1,8 @@
 package system.impl;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
@@ -110,8 +113,13 @@ class PrinterImpl implements Printer {
 
 	@Override
 	public void printOrdersToFile( Iterable<Order> orders, String filepath ) throws IOException {
-		// TODO implement method
-		throw new IOException( "not implemented." );
+		// Resets the formatter, to prevent printing earlier orders
+		formatter = createFormatter();
+		StringBuffer sb = printOrders(orders);
+		BufferedWriter bwr = new BufferedWriter(new FileWriter(new File(filepath)));
+		bwr.write(sb.toString());
+		bwr.flush();
+		bwr.close();
 	}
     
 }

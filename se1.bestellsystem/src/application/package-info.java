@@ -13,7 +13,9 @@
  * @version {@value package_info#Version}
  * @author Leander Wendt	
  */
-package datamodel;
+
+package application;
+
 class package_info {
 	static final String Version = "0.1.0";
 }
