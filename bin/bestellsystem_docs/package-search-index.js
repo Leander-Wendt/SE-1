@@ -1,1 +1,0 @@
-packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"m":"se1.bestellsystem","l":"datamodel"}];updateSearchResults();
