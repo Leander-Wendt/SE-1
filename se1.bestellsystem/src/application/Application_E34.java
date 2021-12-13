@@ -19,7 +19,7 @@ import static system.RTE.Configuration.KEY_DATASOURCE_ARTICLE;
  * @author Leander Wendt
  *
  */
-public class Application_E12 {
+public class Application_E34 {
 
 
 	/**
@@ -51,7 +51,9 @@ public class Application_E12 {
 				System.out.println( "system is running..." );
 			});
 
-		OrderBuilder ob = OrderBuilder.getInstance( runtime );
+		OrderBuilder ob = (OrderBuilder) runtime.getOrderBuilder();
+
+
 		//
 		ob.build();		// build and save orders to OrderRepository
 
