@@ -1,6 +1,7 @@
 package application;
 
 import datamodel.Order;
+import system.OrderBuilder;
 import system.RTE;
 import system.RTE.Runtime;
 //
@@ -51,7 +52,7 @@ public class Application_E34 {
 				System.out.println( "system is running..." );
 			});
 
-		OrderBuilder ob = (OrderBuilder) runtime.getOrderBuilder();
+		OrderBuilder ob = runtime.getOrderBuilder();
 
 
 		//

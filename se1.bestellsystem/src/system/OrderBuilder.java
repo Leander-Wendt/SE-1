@@ -13,7 +13,7 @@ public interface OrderBuilder {
     /**
        * Build orders in OrderRepository.
        *
-       * @return chainable self‐reference.
+       * @return chainable self reference.
        */
     public OrderBuilder build();
     }

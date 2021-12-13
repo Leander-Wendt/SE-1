@@ -132,6 +132,16 @@ class RTE_Impl implements RTE {
 		 */
 		private final DataRepositoryImpl dataRepositoryImpl = new DataRepositoryImpl();
 
+		/**
+		 * OrderBuilder implementations used by Runtime instance.
+		 */
+		private final OrderBuilderImpl orderBuilderImpl = (OrderBuilderImpl) OrderBuilderImpl.getInstance(this);
+
+		/**
+		 * InventoryManager implementations used by Runtime instance.
+		 */
+		private final InventoryManager inventoryManager;
+
 
 		/**
 		 * Private constructor.
@@ -142,6 +152,7 @@ class RTE_Impl implements RTE {
 			if( config == null )
 				throw new IllegalArgumentException( "config: null" );
 			this.config = config;
+			this.inventoryManager = new InventoryManagerMOCK();
 		}
 
 		/**
@@ -259,14 +270,12 @@ class RTE_Impl implements RTE {
 
 		@Override
 		public OrderBuilder getOrderBuilder() {
-			// TODO Auto-generated method stub
-			return null;
+			return orderBuilderImpl;
 		}
 
 		@Override
 		public InventoryManager getInventoryManager() {
-			// TODO Auto-generated method stub
-			return null;
+			return inventoryManager;
 		}
 	}
 }
