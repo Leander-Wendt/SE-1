@@ -9,6 +9,7 @@ import datamodel.Article;
 import datamodel.Customer;
 import datamodel.Order;
 import system.Calculator;
+import system.OrderBuilder;
 import system.Printer;
 import system.RTE;
 import system.Repository;
@@ -253,6 +254,12 @@ class RTE_Impl implements RTE {
 					});
 			});
 			return this;
+		}
+
+		@Override
+		public OrderBuilder getOrderBuilder() {
+			// TODO Auto-generated method stub
+			return null;
 		}
 	}
 }
