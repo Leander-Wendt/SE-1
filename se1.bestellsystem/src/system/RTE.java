@@ -160,6 +160,8 @@ public interface RTE {
 		 */
 		Runtime loadData();
 
+		OrderBuilder getOrderBuilder();
+
 	}
 
 }
