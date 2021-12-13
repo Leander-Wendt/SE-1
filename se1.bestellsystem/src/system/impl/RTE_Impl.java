@@ -9,6 +9,7 @@ import datamodel.Article;
 import datamodel.Customer;
 import datamodel.Order;
 import system.Calculator;
+import system.InventoryManager;
 import system.OrderBuilder;
 import system.Printer;
 import system.RTE;
@@ -258,6 +259,12 @@ class RTE_Impl implements RTE {
 
 		@Override
 		public OrderBuilder getOrderBuilder() {
+			// TODO Auto-generated method stub
+			return null;
+		}
+
+		@Override
+		public InventoryManager getInventoryManager() {
 			// TODO Auto-generated method stub
 			return null;
 		}
