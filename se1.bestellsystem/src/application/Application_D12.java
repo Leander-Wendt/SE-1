@@ -54,6 +54,7 @@ public class Application_D12 {
 		ob.build();		// build and save orders to OrderRepository
 
 		Iterable<Order> orders = runtime.getOrderRepository().findAll();
+		System.out.println(runtime.getOrderRepository().count());
 		StringBuffer sb = runtime.getPrinter().printOrders( orders );
 
 		System.out.println( sb.toString() );

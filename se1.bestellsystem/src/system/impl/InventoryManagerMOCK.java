@@ -10,7 +10,7 @@ class InventoryManagerMOCK implements InventoryManager{
 
     @Override
     public boolean isFillable(Order order) {
-        return false;
+        return true;
     }
     
 }

@@ -31,7 +31,7 @@ class OrderBuilderImpl implements OrderBuilder {
 	 * @param runtime dependency injected from where repository
 	 * dependencies are resolved.
 	 */
-	private OrderBuilderImpl( Runtime runtime ) {
+	OrderBuilderImpl( Runtime runtime ) {
 		this.customerRepository = runtime.getCustomerRepository();
 		this.articleRepository = runtime.getArticleRepository();
 		this.orderRepository = runtime.getOrderRepository();
