@@ -16,7 +16,7 @@ import system.RTE.Runtime;
  * 
  * @since "0.1.0"
  * @version "0.1.1 - feature.732 InventoryManager" 
- * @author sgra64
+ * @author Leander Wendt
  *
  */
 
@@ -31,7 +31,6 @@ public class Application_E56_feat732 {
 	public static void main( String[] args ) {
 		//
 		System.out.println( "SE1 Bestellsystem (feature.732 InventoryManager)" );
-
 		Runtime runtime = RTE.getInstance()
 			//
 			.create( config -> {
@@ -39,8 +38,8 @@ public class Application_E56_feat732 {
 				 * configure customer and article data imported from JSON
 				 */
 				config.put( KEY_DATASOURCE, JSON_DATASOURCE );
-				config.put( KEY_DATASOURCE_CUSTOMER, "src/data/customers_10.json" );
-				config.put( KEY_DATASOURCE_ARTICLE, "src/data/articles_9.json" );
+				config.put( KEY_DATASOURCE_CUSTOMER, "se1.bestellsystem/src/data/customers_10.json" );
+				config.put( KEY_DATASOURCE_ARTICLE, "se1.bestellsystem/src/data/articles_9.json" );
 			})
 			//
 			.launch( (config, rt ) -> {

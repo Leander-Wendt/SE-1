@@ -1,6 +1,10 @@
 package system.impl;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Stream;
@@ -80,53 +84,51 @@ public class InventoryManagerImpl implements system.InventoryManager {
     }
 
     /**
- * Print inventory as table.
- * 
- * @return printed inventory (as table).
- */
-@Override
-public StringBuffer printInventory() {
-	return printInventory(
-		StreamSupport.stream( repo.findAll().spliterator(), false )
-	);
-}
+    * Print inventory as table.
+    * 
+    * @return printed inventory (as table).
+    */
+    @Override
+    public StringBuffer printInventory() {
+	    return printInventory(
+		    StreamSupport.stream( repo.findAll().spliterator(), false )
+	    );
+    }
 
-private StringBuffer printInventory( Stream<Article> articleStream ) {
-	//
-	Formatter formatter = new FormatterImpl();
-	TableFormatter tfmt = new TableFormatterImpl( formatter, new Object[][] {
-		// five column table with column specs: width and alignment ('[' left, ']' right)
-		{ 12, '[' }, { 32, '[' }, { 12, ']' }, { 10, ']' }, { 14, ']' }
-	})
-		.liner( "+-+-+-+-+-+" )		// print table header
-		.hdr( "||", "Inv.-Id", "Article / Unit", "Unit", "Units", "Value" )
-		.hdr( "||", "", "", "Price", "in-Stock", "(in €)" )
-		.liner( "+-+-+-+-+-+" )
-		;
-	//
-	long totalValue = articleStream
-		.map( a -> {
-			long unitsInStock = this.inventory.get( a.getId() ).intValue();
-			long value = a.getUnitPrice() * unitsInStock;
-			tfmt.hdr( "||",
-				a.getId(),
-				a.getDescription(),
-				formatter.fmtPrice( a.getUnitPrice(), a.getCurrency()).toString(),
-				Long.toString( unitsInStock ),
-				formatter.fmtPrice( value, a.getCurrency() ).toString()
-			);
-			return value;
-		})
-		.reduce( 0L, (a, b) -> a + b );
-	//
-	String inventoryValue = formatter.fmtPrice( totalValue, Currency.EUR ).toString();
-	tfmt
-		.liner( "+-+-+-+-+-+" )
-		.hdr( "", "", "Invent", "ory Value:", inventoryValue )
-		;
-	//
-	return tfmt.getFormatter().getBuffer();
-}
+    private StringBuffer printInventory( Stream<Article> articleStream ) {
+	    //
+	    Formatter formatter = new FormatterImpl();
+	    TableFormatter tfmt = new TableFormatterImpl( formatter, new Object[][] {
+		    // five column table with column specs: width and alignment ('[' left, ']' right)
+		    { 12, '[' }, { 32, '[' }, { 12, ']' }, { 10, ']' }, { 14, ']' }
+	    })
+		    .liner( "+-+-+-+-+-+" )		// print table header
+		    .hdr( "||", "Inv.-Id", "Article / Unit", "Unit", "Units", "Value" )
+		    .hdr( "||", "", "", "Price", "in-Stock", "(in €)" )
+		    .liner( "+-+-+-+-+-+" );
+	    //
+	    long totalValue = articleStream
+		    .map( a -> {
+			    long unitsInStock = this.inventory.get( a.getId() ).intValue();
+			    long value = a.getUnitPrice() * unitsInStock;
+			    tfmt.hdr( "||",
+			    	a.getId(),
+				    a.getDescription(),
+				    formatter.fmtPrice( a.getUnitPrice(), a.getCurrency()).toString(),
+			    	Long.toString( unitsInStock ),
+				    formatter.fmtPrice( value, a.getCurrency() ).toString()
+			    );
+			    return value;
+		    })
+		    .reduce( 0L, (a, b) -> a + b );
+	    //
+	    String inventoryValue = formatter.fmtPrice( totalValue, Currency.EUR ).toString();
+	    tfmt
+		    .liner( "+-+-+-+-+-+" )
+		    .hdr( "", "", "Invent", "ory Value:", inventoryValue );
+	    //
+	    return tfmt.getFormatter().getBuffer();
+    }
 
 
     @Override
@@ -169,5 +171,11 @@ private StringBuffer printInventory( Stream<Article> articleStream ) {
 		}
 		return entity;
     }
+
+    @Override
+	public StringBuffer printInventory(int sortedBy, boolean descending, Integer... limit) {
+
+        return null;
+	}
 
 }
