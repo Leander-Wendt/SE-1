@@ -13,12 +13,12 @@ import system.Repository;
 public class InventoryManagerImpl implements system.InventoryManager {
     private static InventoryManagerImpl instance = null;
 	private static Repository<Article> repo = null;
-    private final Map<String, Integer> map;
+    private final Map<String, Integer> inventory;
 
 
     private InventoryManagerImpl(Repository<Article> repo){
         this.repo = repo;
-        map = new HashMap<>();
+        inventory = new HashMap<>();
     }
 
     public static InventoryManager getInstance(Repository<Article> repo) {
@@ -34,7 +34,7 @@ public class InventoryManagerImpl implements system.InventoryManager {
         if (id == null || id.equals("")) {
             throw new IllegalArgumentException("id cannot be empty");
         }
-		return map.get(id);
+		return inventory.get(id);
     }
 
     @Override
@@ -45,7 +45,7 @@ public class InventoryManagerImpl implements system.InventoryManager {
 		if (updatedUnitsInStock < 0) {
             throw new IllegalArgumentException("amount of updatedUnitsInStock must be positive or 0");
         }
-		map.put(id, updatedUnitsInStock);        
+		inventory.put(id, updatedUnitsInStock);        
     }
 
     @Override
@@ -113,7 +113,19 @@ public class InventoryManagerImpl implements system.InventoryManager {
 
     @Override
     public Article save(Article entity) {
-        return repo.save(entity);
+        if (entity == null) {
+            throw new IllegalArgumentException("entity cannot be null");
+        }
+		String id = entity.getId();
+		if (id == null) {
+            throw new IllegalArgumentException("entity cannot be null");
+        }
+
+		repo.save(entity);
+		if (!inventory.containsKey(id)) {
+			this.inventory.put(id, Integer.valueOf(0));
+		}
+		return entity;
     }
 
 }
