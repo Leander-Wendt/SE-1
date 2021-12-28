@@ -137,11 +137,11 @@ public interface RTE {
 
 
 		/**
-		 * Return singleton instance of ArticleRepository.
+		 * Return singleton instance of InventoryManager.
 		 * 
-		 * @return singleton instance of ArticleRepository
+		 * @return singleton instance of InventoryManager
 		 */
-		Repository<Article> getArticleRepository();
+		InventoryManager getInventoryManager();
 
 
 		/**
