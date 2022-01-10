@@ -5,9 +5,9 @@
 # ignore IDE project files
 #
 # eclipse
-.classpath
-.project
-.settings
+se1.bestellsystem/.classpath
+se1.bestellsystem/.project
+se1.bestellsystem/.settings
 #
 # IntelliJ
 .iml
