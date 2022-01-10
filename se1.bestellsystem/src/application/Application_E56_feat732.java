@@ -30,6 +30,7 @@ public class Application_E56_feat732 {
 	 */
 	public static void main( String[] args ) {
 		//
+		System.out.println("Working Directory = " + System.getProperty("user.dir"));
 		System.out.println( "SE1 Bestellsystem (feature.732 InventoryManager)" );
 		Runtime runtime = RTE.getInstance()
 			//
@@ -38,8 +39,8 @@ public class Application_E56_feat732 {
 				 * configure customer and article data imported from JSON
 				 */
 				config.put( KEY_DATASOURCE, JSON_DATASOURCE );
-				config.put( KEY_DATASOURCE_CUSTOMER, "se1.bestellsystem/src/data/customers_10.json" );
-				config.put( KEY_DATASOURCE_ARTICLE, "se1.bestellsystem/src/data/articles_9.json" );
+				config.put( KEY_DATASOURCE_CUSTOMER, "./src/data/customers_10.json" );
+				config.put( KEY_DATASOURCE_ARTICLE, "./src/data/articles_9.json" );
 			})
 			//
 			.launch( (config, rt ) -> {
@@ -53,15 +54,17 @@ public class Application_E56_feat732 {
 		//
 		InventoryManager im = runtime.getInventoryManager();
 
+		StringBuffer inventory = im.printInventory();
+		System.out.print( "\ninventory before orders:\n" + inventory.toString() );
+
 		// adjust inventory to test order acceptance in OrderBuilder.build()
 		//
-//		im.update( "SKU-693856", 8 + 3 );	// SKU-693856 Becher (Eric's 1st: 8x, 4th order: 3x)
+		im.update( "SKU-693856", 2 );	// SKU-693856 Becher (Eric's 1st: 8x, 4th order: 3x)
 //		im.update( "SKU-425378", 0 );	// update inventory for: SKU-425378 Buch 'OOP'
 //		im.update( "SKU-583978", 0 );	// update inventory for: SKU-583978 Fahrradkarte
 //		im.update( "SKU-300926", 0 );	// update inventory for: SKU-300926 Pfanne
 		//
-		StringBuffer inventory = im.printInventory();
-		System.out.print( "\ninventory before orders:\n" + inventory.toString() );
+		
 
 		System.out.println( "accepting orders: " );
 		//
@@ -75,7 +78,7 @@ public class Application_E56_feat732 {
 
 		// sortedBy 1: byPrice; 2: byValue; 3: byUnits; 4: byDescription; 5: bySKU; else: unsorted
 //		inventory = im.printInventory( 2, true );
-		inventory = im.printInventory();
+		inventory = im.printInventory(3, false);
 		System.out.println( "\ninventory after orders:\n" + inventory.toString() );
 
 		runtime.shutdown( rt -> { System.out.println( "...shutting down." ); } );

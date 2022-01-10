@@ -172,10 +172,53 @@ public class InventoryManagerImpl implements system.InventoryManager {
 		return entity;
     }
 
+	 /**
+   * Print inventory as table with sorting and limiting criteria.
+   * @param sortedBy sorting criteria 1: byPrice; 2: byValue; 3: byUnits;
+   *          4: byDescription; 5: bySKU; else: unsorted
+   * @param decending true if in descending order
+   * @param limit upper boundary of articles printed after sorting
+   * @return printed inventory (as table).
+   */
     @Override
-	public StringBuffer printInventory(int sortedBy, boolean descending, Integer... limit) {
+	public StringBuffer printInventory(int sortedBy, boolean descending, Integer... limit) {		
+		List<Article> articles = new ArrayList<>();
+		for (Article a : repo.findAll()){
+			articles.add(a);
+		}
+		int min = articles.size();
+		for (Integer x : limit){
+			min = x < min ? x : min;
+		}
 
-        return null;
+		switch (sortedBy){
+			case 1:
+				articles.sort(Comparator.comparing(a -> a.getUnitPrice()));
+				break;
+			case 2:
+				articles.sort(Comparator.comparingLong(a -> a.getUnitPrice() * getUnitsInStock(a.getId())));
+				break;
+			case 3:
+				articles.sort(Comparator.comparing(a -> getUnitsInStock(a.getId())));
+				break;
+			case 4:
+				articles.sort(Comparator.comparing(a -> a.getDescription()));
+				break;
+			case 5:
+				articles.sort(Comparator.comparing(a -> a.getId()));
+				break;
+			default:
+				break;
+		}
+
+		if(descending) {
+			Collections.reverse(articles);
+		}
+
+		for (int i = articles.size() - 1; i > min - 1; i--){
+			articles.remove(i);
+		}
+		return printInventory(articles.stream());
 	}
 
 }
