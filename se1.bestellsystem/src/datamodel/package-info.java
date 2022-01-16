@@ -15,5 +15,5 @@
  */
 package datamodel;
 class package_info {
-	static final String Version = "0.1.0";
+	static final String Version = "0.1.2";
 }
