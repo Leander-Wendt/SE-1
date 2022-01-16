@@ -35,6 +35,7 @@ se1.bestellsystem/output
 se1.bestellsystem/bin
 se1.bestellsystem/out
 se1.bestellsystem/target
+se1.bestellsystem/lib
 **/*.class
 **/*.jar
 
