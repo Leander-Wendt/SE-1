@@ -27,6 +27,9 @@ xcuserdata/
 
 # ignore JavaDoc directory
 se1.bestellsystem/doc
+se1.bestellsystem/lib
+se1.bestellsystem/.classpath
+se1.bestellsystem/.project
 
 # ignore .txt output
 se1.bestellsystem/output
