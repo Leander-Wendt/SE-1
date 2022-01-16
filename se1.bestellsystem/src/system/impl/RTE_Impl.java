@@ -9,6 +9,8 @@ import datamodel.Article;
 import datamodel.Customer;
 import datamodel.Order;
 import system.Calculator;
+import system.InventoryManager;
+import system.OrderBuilder;
 import system.Printer;
 import system.RTE;
 import system.Repository;
@@ -130,6 +132,16 @@ class RTE_Impl implements RTE {
 		 */
 		private final DataRepositoryImpl dataRepositoryImpl = new DataRepositoryImpl();
 
+		/**
+		 * OrderBuilder implementations used by Runtime instance.
+		 */
+		private OrderBuilderImpl orderBuilderImpl;
+
+		/**
+		 * InventoryManager implementations used by Runtime instance.
+		 */
+		private InventoryManager inventoryManager;
+
 
 		/**
 		 * Private constructor.
@@ -190,7 +202,6 @@ class RTE_Impl implements RTE {
 		public Printer getPrinter() {
 			return printer;
 		}
-
 
 		/**
 		 * Return singleton instance of CustomerRepository.
@@ -253,6 +264,32 @@ class RTE_Impl implements RTE {
 					});
 			});
 			return this;
+		}
+
+		/**
+		 * Return singleton instance of OrderBuilder.
+		 * 
+		 * @return singleton instance of OrderBuilder
+		 */
+		@Override
+		public OrderBuilder getOrderBuilder() {
+			if (orderBuilderImpl == null){
+				orderBuilderImpl = new OrderBuilderImpl(this);
+			}
+			return orderBuilderImpl;
+		}
+
+		/**
+		 * Return singleton instance of InventoryManager.
+		 * 
+		 * @return singleton instance of InventoryManager
+		 */
+		@Override
+		public InventoryManager getInventoryManager() {
+			if (inventoryManager == null){
+				inventoryManager = new InventoryManagerMOCK();
+			}
+			return inventoryManager;
 		}
 	}
 }

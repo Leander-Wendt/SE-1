@@ -114,6 +114,10 @@ class PrinterImpl implements Printer {
 	@Override
 	public void printOrdersToFile( Iterable<Order> orders, String filepath ) throws IOException {
 		// Resets the formatter, to prevent printing earlier orders
+		File dir = new File("output");
+		File f = new File("output/orders.txt");
+		dir.mkdir();
+		f.createNewFile();
 		formatter = createFormatter();
 		StringBuffer sb = printOrders(orders);
 		BufferedWriter bwr = new BufferedWriter(new FileWriter(new File(filepath)));
