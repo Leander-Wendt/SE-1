@@ -31,7 +31,7 @@ public class Application_E34 {
 	public static void main( String[] args ) {
 		//
 		System.out.println( "SE1 Bestellsystem" );
-
+		System.out.println("Working Directory = " + System.getProperty("user.dir"));
 		Runtime runtime = RTE.getInstance()
 			//
 			.create( config -> {
@@ -39,8 +39,8 @@ public class Application_E34 {
 				 * configure customer and article data imported from JSON
 				 */
 				config.put( KEY_DATASOURCE, JSON_DATASOURCE );
-				config.put( KEY_DATASOURCE_CUSTOMER, "se1.bestellsystem/src/data/customers_10.json" );
-				config.put( KEY_DATASOURCE_ARTICLE, "se1.bestellsystem/src/data/articles_9.json" );
+				config.put( KEY_DATASOURCE_CUSTOMER, "SE-1/se1.bestellsystem/src/data/customers_10.json" );
+				config.put( KEY_DATASOURCE_ARTICLE, "SE-1/se1.bestellsystem/src/data/articles_9.json" );
 			})
 			//
 			.launch( (config, rt) -> {

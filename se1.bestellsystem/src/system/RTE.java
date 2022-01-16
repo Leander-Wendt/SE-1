@@ -137,11 +137,11 @@ public interface RTE {
 
 
 		/**
-		 * Return singleton instance of ArticleRepository.
+		 * Return singleton instance of InventoryManager.
 		 * 
-		 * @return singleton instance of ArticleRepository
+		 * @return singleton instance of InventoryManager
 		 */
-		Repository<Article> getArticleRepository();
+		InventoryManager getInventoryManager();
 
 
 		/**
@@ -150,6 +150,13 @@ public interface RTE {
 		 * @return singleton instance of OrderRepository
 		 */
 		Repository<Order> getOrderRepository();
+
+		/**
+		 * Return singleton instance of ArticleRepository.
+		 * 
+		 * @return singleton instance of ArticleRepository
+		 */
+		Repository<Article> getArticleRepository();
 
 
 		/**
@@ -161,13 +168,6 @@ public interface RTE {
 		Runtime loadData();
 
 		OrderBuilder getOrderBuilder();
-
-		/**
-   		* Return singleton instance of InventoryManager.
-   		*
-   		* @return singleton instance of InventoryManager.
-   		*/
-		InventoryManager getInventoryManager();
 	}
 
 }
