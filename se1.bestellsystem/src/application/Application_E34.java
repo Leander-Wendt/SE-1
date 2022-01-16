@@ -53,8 +53,6 @@ public class Application_E34 {
 			});
 
 		OrderBuilder ob = runtime.getOrderBuilder();
-
-
 		//
 		ob.build();		// build and save orders to OrderRepository
 
